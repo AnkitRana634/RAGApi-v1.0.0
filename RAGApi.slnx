@@ -1,0 +1,7 @@
+<Solution>  
+  <Project Path="D:/Git/RAGApi/RAGApi.Helper/RAGApi.Helper.csproj" />
+  <Project Path="D:/Git/RAGApi/RAGApi.Infrastructure/RAGApi.Infrastructure.csproj" />
+  <Project Path="D:/Git/RAGApi/RAGApi.Application/RAGApi.Application.csproj" />
+  <Project Path="D:/Git/RAGApi/RAGApi/RAGApi.csproj" />
+  <Project Path="RAGApi.Domain/RAGApi.Domain.csproj" Id="23168545-be7b-4a17-b752-a2d8a02224a4" />
+</Solution>

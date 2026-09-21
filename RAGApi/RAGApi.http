@@ -1,0 +1,6 @@
+@RAGApi_HostAddress = http://localhost:5075
+
+GET {{RAGApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
