@@ -18,9 +18,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIAL }}
 
-      - name: Login to ACR
-        run: az acr login --name RAGApi --expose-token
-
       - name: Build Docker Image
         run: docker build -f RAGApi/Dockerfile -t ragapi.azurecr.io/ragapi:${{ github.sha }} .
         
