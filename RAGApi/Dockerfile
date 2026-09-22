@@ -4,9 +4,9 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore RAGApi.csproj
+RUN dotnet restore RAGApi/RAGApi.csproj
 
-RUN dotnet publish RAGApi.csproj \
+RUN dotnet publish RAGApi/RAGApi.csproj \
     -c Release \
     -o /app/publish \
     --no-restore
