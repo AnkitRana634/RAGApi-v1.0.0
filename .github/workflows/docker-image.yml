@@ -19,10 +19,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIAL }}
           
       - name: Check Azure identity
-          run: |
-            az account show \
-            --query "{subscription:id, tenant:tenantId, user:user}" \
-            --output json
+          run:  az account show  --query "{subscription:id, tenant:tenantId, user:user}"  --output json
             
       - name: Login to ACR
           run: az acr login --name ragapi --expose-token
