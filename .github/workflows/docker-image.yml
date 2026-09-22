@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-  - name: Checkout
-    uses: actions/checkout@v4
-
-  - name: Debug repository
-    run: |
-      echo "Current directory:"
-      pwd
-
-      echo "GitHub workspace:"
-      echo "$GITHUB_WORKSPACE"
-
-      echo "Root contents:"
-      ls -la
-
-      echo "Dockerfiles:"
-      find . -iname "Dockerfile" -print
+        - name: Checkout
+            uses: actions/checkout@v4
+        
+        - name: Debug repository
+            run: |
+            echo "Current directory:"
+            pwd
+        
+            echo "GitHub workspace:"
+            echo "$GITHUB_WORKSPACE"
+        
+            echo "Root contents:"
+            ls -la
+        
+            echo "Dockerfiles:"
+            find . -iname "Dockerfile" -print
