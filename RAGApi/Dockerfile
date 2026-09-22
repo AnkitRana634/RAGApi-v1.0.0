@@ -4,9 +4,12 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore
+RUN dotnet restore RAGApi.csproj
 
-RUN dotnet publish -c Release -o /app/publish --no-restore
+RUN dotnet publish RAGApi.csproj \
+    -c Release \
+    -o /app/publish \
+    --no-restore
 
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
