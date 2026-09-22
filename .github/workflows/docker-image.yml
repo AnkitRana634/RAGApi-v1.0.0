@@ -22,7 +22,7 @@ jobs:
         run: az acr login --name RAGApi --expose-token
 
       - name: Build Docker Image
-        run: docker build -f Dockerfile -t ragapi.azurecr.io/ragapi:${{ github.sha }} .
+        run: docker build -f RAGApi/Dockerfile -t ragapi.azurecr.io/ragapi:${{ github.sha }} .
 
       - name: Push Docker Image
         run:  docker push RAGApi.azurecr.io/ragapi:${{ github.sha }}
