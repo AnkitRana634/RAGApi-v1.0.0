@@ -13,6 +13,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Inspect repository
+        run: |
+            echo "================================"
+            echo "Current directory"
+            echo "================================"
+            pwd
+            
+            echo "================================"
+            echo "Workspace"
+            echo "================================"
+            echo "$GITHUB_WORKSPACE"
+            
+            echo "================================"
+            echo "Repository root"
+            echo "================================"
+            ls -la
+            
+            echo "================================"
+            echo "All CSProj files"
+            echo "================================"
+            find "$GITHUB_WORKSPACE" -type f -name "*.csproj" -print
+            
+            echo "================================"
+            echo "All Dockerfiles"
+            echo "================================"
+            find "$GITHUB_WORKSPACE" -type f -iname "Dockerfile" -print
+            
+            echo "================================"
+            echo "RAGApi directory"
+            echo "================================"
+            ls -la "$GITHUB_WORKSPACE/RAGApi" || true
+            
       - name: Login to Azure
         uses: azure/login@v2
         with:
