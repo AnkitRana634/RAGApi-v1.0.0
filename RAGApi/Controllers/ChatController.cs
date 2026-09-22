@@ -16,7 +16,6 @@ namespace RAGApi.Controllers
         [HttpGet("ChatWithOllama")]
         public async Task<IActionResult> Test(string question)
         {
-
             var response =
                 await _agent.HandleQueryAsync(question);
 
