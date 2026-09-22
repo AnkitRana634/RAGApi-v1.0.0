@@ -1,4 +1,15 @@
-steps:
+name: Build and Push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
   - name: Checkout
     uses: actions/checkout@v4
 
