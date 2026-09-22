@@ -24,9 +24,9 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build \
-             -f src/RAGApi/Dockerfile \
-             -t RAGApi.azurecr.io/ragapi:${{ github.sha }} \
-             src/RAGApi
+             -f Dockerfile \
+             -t RAGApi.azurecr.io/ragapi:${{ github.sha }} \ 
+             .
 
       - name: Push Docker Image
         run: |
