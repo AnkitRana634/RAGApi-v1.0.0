@@ -17,12 +17,12 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIAL }}
-            
-      - name: Login to ACR
-          run: az acr login --name ragapi --expose-token
-        
+
       - name: Build Docker Image
-        run: docker build -f RAGApi/Dockerfile -t ragapi.azurecr.io/ragapi:${{ github.sha }} . 
+        run: docker build -f RAGApi/Dockerfile -t ragapi.azurecr.io/ragapi:${{ github.sha }} .
+        
+      - name: Login to ACR
+        run: az acr login --name RAGApi --expose-token
 
       - name: Push Docker Image
         run:  docker push ragapi.azurecr.io/ragapi:${{ github.sha }}
