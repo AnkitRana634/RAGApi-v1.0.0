@@ -2,11 +2,14 @@ using Application.ServiceClass;
 using Application.ServiceContract;
 using Application.VectorStore;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Linq;
 using RAGApi.Application.ServiceClass;
 using RAGApi.Application.ServiceContract;
-using RAGApi.Repositories;
 using RAGApi.Domain.Repository;
 using RAGApi.Infrastructure.Services;
+using RAGApi.Repositories;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +39,13 @@ builder.Services.AddHttpClient<IEmbeddingService,EmbeddingService>(
         client.BaseAddress =
             new Uri("http://localhost:11434");
     });
+// Configure Swagger
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AgenticRAGMCPAPI", Version = "v1" });
+});
 builder.Services.AddScoped<IDocumentExtract, DocumentExtract>();
 builder.Services.AddScoped<ITextChunkingService,TextChunkingService>();
 builder.Services.AddScoped<IDocumentIngestionService, DocumentIngestionService>();
@@ -49,6 +59,36 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+// Enable Swagger UI and open it automatically on app start (development only)
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgenticRAGMCPAPI v1");
+    });
+
+    app.Lifetime.ApplicationStarted.Register(() =>
+    {
+        try
+        {
+            var url = app.Urls.FirstOrDefault() ?? builder.Configuration["ASPNETCORE_URLS"] ?? "http://localhost:5070";
+            var swaggerUrl = url.TrimEnd('/') + "/swagger/index.html";
+            Process.Start(new ProcessStartInfo { FileName = swaggerUrl, UseShellExecute = true });
+        }
+        catch
+        {
+            // ignore failures to open browser
+        }
+    });
+}
+else
+{
+    // In non-development environments you may still enable swagger if desired
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgenticRAGMCPAPI v1"));
+}
 
 app.UseAuthorization();
 

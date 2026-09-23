@@ -16,7 +16,8 @@ namespace RAGApi.Controllers
             _documentService = documentService;
         }
         [HttpPost]
-        public async Task<IActionResult> Upload([FromForm] IFormFile file)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Upload(IFormFile file)
         {
             if (file == null)
                 return BadRequest("Please upload a file.");
