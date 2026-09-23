@@ -28,7 +28,7 @@ builder.Services.AddHttpClient<ILlmService, OllamaLlmService>(
     client =>
     {
         client.BaseAddress =
-            new Uri("http://localhost:11434");
+            new Uri("http://ollama:11434");
 
         client.Timeout =
             TimeSpan.FromMinutes(5);
@@ -37,7 +37,7 @@ builder.Services.AddHttpClient<IEmbeddingService,EmbeddingService>(
     client =>
     {
         client.BaseAddress =
-            new Uri("http://localhost:11434");
+            new Uri("http://ollama:11434");
     });
 // Configure Swagger
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
