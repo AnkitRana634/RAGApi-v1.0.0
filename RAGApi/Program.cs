@@ -28,7 +28,7 @@ builder.Services.AddHttpClient<ILlmService, OllamaLlmService>(
     client =>
     {
         client.BaseAddress =
-            new Uri("https://ollama.livelydune-92aae421.westus2.azurecontainerapps.io);
+            new Uri("https://ollama.livelydune-92aae421.westus2.azurecontainerapps.io");
 
         client.Timeout =
             TimeSpan.FromMinutes(5);
