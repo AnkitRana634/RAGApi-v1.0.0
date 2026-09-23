@@ -28,7 +28,7 @@ builder.Services.AddHttpClient<ILlmService, OllamaLlmService>(
     client =>
     {
         client.BaseAddress =
-            new Uri("https://ollama.livelydune-92aae421.westus2.azurecontainerapps.io:11434");
+            new Uri("https://ollama.livelydune-92aae421.westus2.azurecontainerapps.io);
 
         client.Timeout =
             TimeSpan.FromMinutes(5);
@@ -37,7 +37,7 @@ builder.Services.AddHttpClient<IEmbeddingService,EmbeddingService>(
     client =>
     {
         client.BaseAddress =
-            new Uri("https://ollama.livelydune-92aae421.westus2.azurecontainerapps.io:11434");
+            new Uri("https://ollama.livelydune-92aae421.westus2.azurecontainerapps.io");
     });
 // Configure Swagger
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
