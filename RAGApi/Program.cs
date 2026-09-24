@@ -27,17 +27,17 @@ builder.Services.AddDbContext<RagDbContext>(options =>
 builder.Services.AddHttpClient<ILlmService, OllamaLlmService>(
     client =>
     {
-        client.BaseAddress =
-            new Uri("https://ollama.internal.livelydune-92aae421.westus2.azurecontainerapps.io");
+        client.BaseAddress = builder.Configuration.GetValue<string>("Env") == "production" ?
+            new Uri("https://ollama.internal.livelydune-92aae421.westus2.azurecontainerapps.io") : new Uri("http://localhost:11434");
 
         client.Timeout =
             TimeSpan.FromMinutes(5);
     });
-builder.Services.AddHttpClient<IEmbeddingService,EmbeddingService>(
+builder.Services.AddHttpClient<IEmbeddingService, EmbeddingService>(
     client =>
     {
-        client.BaseAddress =
-            new Uri("https://ollama.internal.livelydune-92aae421.westus2.azurecontainerapps.io");
+        client.BaseAddress = builder.Configuration.GetValue<string>("Env") == "production" ?
+            new Uri("https://ollama.internal.livelydune-92aae421.westus2.azurecontainerapps.io") : new Uri("http://localhost:11434");
     });
 // Configure Swagger
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -46,8 +46,18 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "AgenticRAGMCPAPI", Version = "v1" });
 });
+// Configure CORS - allow all origins (development convenience)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 builder.Services.AddScoped<IDocumentExtract, DocumentExtract>();
-builder.Services.AddScoped<ITextChunkingService,TextChunkingService>();
+builder.Services.AddScoped<ITextChunkingService, TextChunkingService>();
 builder.Services.AddScoped<IDocumentIngestionService, DocumentIngestionService>();
 builder.Services.AddSingleton<IVectorStore, InMemoryVectorStore>();
 builder.Services.AddScoped<IRagService, RagService>();
@@ -89,6 +99,9 @@ else
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgenticRAGMCPAPI v1"));
 }
+
+// Enable CORS globally
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
